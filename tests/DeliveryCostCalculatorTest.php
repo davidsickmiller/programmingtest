@@ -4,11 +4,13 @@ require "../vendor/autoload.php";
 
 use PHPUnit\Framework\TestCase;
 use ProgrammingTest\DeliveryCostCalculator;
+use ProgrammingTest\Item;
 
 class DeliveryCostCalculatorTest extends TestCase
 {
     public function testSmallParcel()
     {
-        $this->assertSame(3, DeliveryCostCalculator::calculateCost(5.0, 5.0, 5.0));
+        $item = new Item(5.0, 5.0, 5.0);
+        $this->assertSame(3, DeliveryCostCalculator::calculateCost($item));
     }
 }

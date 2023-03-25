@@ -4,9 +4,9 @@ namespace ProgrammingTest;
 
 class DeliveryCostCalculator
 {
-    public static function calculateCost(float $width, float $length, float $height): int
+    public static function calculateCost(Item $item): int
     {
-        $longestDimension = max($width, $length, $height);
+        $longestDimension = max($item->width, $item->length, $item->height);
         if ($longestDimension < 10) {
             return 3;
         }
