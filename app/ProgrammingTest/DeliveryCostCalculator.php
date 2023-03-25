@@ -1,5 +1,7 @@
 <?php
 
+namespace ProgrammingTest;
+
 class DeliveryCostCalculator
 {
     public static function calculateCost(float $width, float $length, float $height): int

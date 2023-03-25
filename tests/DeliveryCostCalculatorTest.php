@@ -1,8 +1,9 @@
 <?php
 
-require "./DeliveryCostCalculator.php";
+require "../vendor/autoload.php";
 
 use PHPUnit\Framework\TestCase;
+use ProgrammingTest\DeliveryCostCalculator;
 
 class DeliveryCostCalculatorTest extends TestCase
 {

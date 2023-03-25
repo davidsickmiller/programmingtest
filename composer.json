@@ -1,0 +1,19 @@
+{
+  "name": "davidsickmiller/programmingtest",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "David Sickmiller",
+      "email": "david@sickmiller.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ProgrammingTest\\":"app/ProgrammingTest"
+    }
+  },
+  "require": {
+  }
+}
