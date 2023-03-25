@@ -6,6 +6,8 @@ class DeliveryCostCalculator
 {
     /**
      * @param Item[] $items
+     * @return array - 'items', an array of Items
+     *               - 'totalCost', an int for the cost of all items
      */
     public static function calculateCost(array $items): array
     {
