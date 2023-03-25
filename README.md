@@ -4,7 +4,7 @@ Notes taken concurrently
 
 1:44pm start
 
-It's tempting to write the test in C#, since that's most relevant for the company.  But it's been several years since I've last written C#.  I don't have the tooling set up on my ladder, and with the test being only 2 hours there's risk that I'll run into some setup problem or error message that takes 20-30 minutes to address, at which point I will have lost a quarter of the test time.  In skimming through the implementation steps, I don't see anything that would be hugely different in C# versus, say, PHP or Python.  While I'll definitely need to learn more about C# for the role, I'd imagine it's more likely stuff like optimizing cold start times or smartly upgrading .NET Framework versions that will be important to understand.
+It's tempting to write the test in C#, since that's most relevant for the company.  But it's been several years since I've last written C#.  I don't have the tooling set up on my laptop, and with the test being only 2 hours there's risk that I'll run into some setup problem or error message that takes 20-30 minutes to address, at which point I will have lost a quarter of the test time.  In skimming through the implementation steps, I don't see anything that would be hugely different in C# versus, say, PHP or Python.  While I'll definitely need to learn more about C# for the role, I'd imagine it's more likely stuff like optimizing cold start times or smartly upgrading .NET Framework versions that will be important to understand.
 
 1:51
 Created a repo: https://github.com/davidsickmiller/programmingtest
