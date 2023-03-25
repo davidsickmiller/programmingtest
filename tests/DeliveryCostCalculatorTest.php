@@ -12,7 +12,7 @@ class DeliveryCostCalculatorTest extends TestCase
 {
     public function testSmallParcel()
     {
-        $items = [new Item(5.0, 5.0, 5.0)];
+        $items = [new Item(5.0, 5.0, 5.0, 0.1)];
         $returnVal = DeliveryCostCalculator::calculateCost($items);
         $this->assertSame(3, $returnVal['totalCost']);
         $this->assertCount(1, $returnVal['items']);
@@ -22,7 +22,7 @@ class DeliveryCostCalculatorTest extends TestCase
 
     public function testMediumParcel()
     {
-        $items = [new Item(15.0, 15.0, 15.0)];
+        $items = [new Item(15.0, 15.0, 15.0, 0.1)];
         $returnVal = DeliveryCostCalculator::calculateCost($items);
         $this->assertSame(8, $returnVal['totalCost']);
         $this->assertCount(1, $returnVal['items']);
@@ -32,7 +32,7 @@ class DeliveryCostCalculatorTest extends TestCase
 
     public function testLargeParcel()
     {
-        $items = [new Item(50.0, 50.0, 50.0)];
+        $items = [new Item(50.0, 50.0, 50.0, 0.1)];
         $returnVal = DeliveryCostCalculator::calculateCost($items);
         $this->assertSame(15, $returnVal['totalCost']);
         $this->assertCount(1, $returnVal['items']);
@@ -42,7 +42,7 @@ class DeliveryCostCalculatorTest extends TestCase
 
     public function testXLargeParcel()
     {
-        $items = [new Item(105.0, 5.0, 5.0)];
+        $items = [new Item(105.0, 5.0, 5.0, 0.1)];
         $returnVal = DeliveryCostCalculator::calculateCost($items);
         $this->assertSame(25, $returnVal['totalCost']);
         $this->assertCount(1, $returnVal['items']);
@@ -53,8 +53,8 @@ class DeliveryCostCalculatorTest extends TestCase
     public function testTwoParcels()
     {
         $items = [
-            new Item(15.0, 15.0, 15.0),
-            new Item(105.0, 5.0, 5.0)
+            new Item(15.0, 15.0, 15.0, 0.1),
+            new Item(105.0, 5.0, 5.0, 0.1)
         ];
         $returnVal = DeliveryCostCalculator::calculateCost($items);
         $this->assertSame(33, $returnVal['totalCost']);
@@ -70,8 +70,8 @@ class DeliveryCostCalculatorTest extends TestCase
     public function testSpeedy()
     {
         $items = [
-            new Item(15.0, 15.0, 15.0),
-            new Item(105.0, 5.0, 5.0)
+            new Item(15.0, 15.0, 15.0, 0.1),
+            new Item(105.0, 5.0, 5.0, 0.1)
         ];
         $returnVal = DeliveryCostCalculator::calculateCost($items, ShippingType::Speedy);
         $this->assertSame(66, $returnVal['totalCost']);

@@ -30,7 +30,7 @@ class DeliveryCostCalculator
             $totalCost += $item->cost;
         }
         if ($shippingType === ShippingType::Speedy) {
-            $items[] = new Item(null, null, null, ItemType::SpeedyShipping, $totalCost);
+            $items[] = new Item(null, null, null, null, ItemType::SpeedyShipping, $totalCost);
             $totalCost += $totalCost;
         }
 
