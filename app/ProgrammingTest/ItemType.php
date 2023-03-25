@@ -8,5 +8,7 @@ enum ItemType
     case Medium;
     case Large;
     case XLarge;
+    case Heavy;
+
     case SpeedyShipping;
 }

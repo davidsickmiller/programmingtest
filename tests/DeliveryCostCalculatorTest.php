@@ -98,22 +98,33 @@ class DeliveryCostCalculatorTest extends TestCase
     {
         $items = [new Item(5.0, 5.0, 5.0, 25.0)];
         $returnVal = DeliveryCostCalculator::calculateCost($items);
-        $expectedCost = 51;  // $3 plus $2 X 3KG overage (2.5 rounded up)
+        $expectedCost = 50;  // Heavy parcel under 50kg
         $this->assertSame($expectedCost, $returnVal['totalCost']);
         $this->assertCount(1, $returnVal['items']);
         $this->assertSame($expectedCost, $returnVal['items'][0]->cost);
-        $this->assertSame(ItemType::Small, $returnVal['items'][0]->type);
+        $this->assertSame(ItemType::Heavy, $returnVal['items'][0]->type);
     }
 
     public function testVeryOverweightMediumParcel()
     {
         $items = [new Item(15.0, 15.0, 15.0, 24.5)];
         $returnVal = DeliveryCostCalculator::calculateCost($items);
-        $expectedCost = 52;  // $8 plus $2 X 1KG overage (0.5 rounded up)
+        $expectedCost = 50;  // Heavy parcel under 50kg
         $this->assertSame($expectedCost, $returnVal['totalCost']);
         $this->assertCount(1, $returnVal['items']);
         $this->assertSame($expectedCost, $returnVal['items'][0]->cost);
-        $this->assertSame(ItemType::Medium, $returnVal['items'][0]->type);
+        $this->assertSame(ItemType::Heavy, $returnVal['items'][0]->type);
+    }
+
+    public function testParcelOverFifty()
+    {
+        $items = [new Item(15.0, 15.0, 15.0, 54.5)];
+        $returnVal = DeliveryCostCalculator::calculateCost($items);
+        $expectedCost = 55;  // Heavy parcel under 50kg
+        $this->assertSame($expectedCost, $returnVal['totalCost']);
+        $this->assertCount(1, $returnVal['items']);
+        $this->assertSame($expectedCost, $returnVal['items'][0]->cost);
+        $this->assertSame(ItemType::Heavy, $returnVal['items'][0]->type);
     }
 
 

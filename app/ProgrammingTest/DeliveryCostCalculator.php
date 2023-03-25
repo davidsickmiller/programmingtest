@@ -21,6 +21,11 @@ class DeliveryCostCalculator
         return 10;
     }
 
+    private static function calculateHeavyParcelCost(Item $item): int
+    {
+        return max(50, ceil($item->weight));
+    }
+
     /**
      * @param Item[] $items
      * @return array - 'items', an array of Items
@@ -48,6 +53,14 @@ class DeliveryCostCalculator
             if ($item->weight > $weightLimit) {
                 $item->cost += self::OVER_WEIGHT_FEE_PER_KG * ceil($item->weight - $weightLimit);
             }
+
+            // Consider if we should switch to heavy parcel pricing
+            $heavyParcelCost = self::calculateHeavyParcelCost($item);
+            if ($heavyParcelCost < $item->cost) {
+                $item->type = ItemType::Heavy;
+                $item->cost = $heavyParcelCost;
+            }
+
             $totalCost += $item->cost;
         }
         if ($shippingType === ShippingType::Speedy) {
