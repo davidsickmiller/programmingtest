@@ -9,7 +9,7 @@ class DeliveryCostCalculator
      * @return array - 'items', an array of Items
      *               - 'totalCost', an int for the cost of all items
      */
-    public static function calculateCost(array $items): array
+    public static function calculateCost(array $items, ShippingType $shippingType = ShippingType::Standard): array
     {
         $totalCost = 0;
         foreach ($items as $item) {

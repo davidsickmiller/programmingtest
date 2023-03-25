@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use ProgrammingTest\DeliveryCostCalculator;
 use ProgrammingTest\Item;
 use ProgrammingTest\ItemType;
+use ProgrammingTest\ShippingType;
 
 class DeliveryCostCalculatorTest extends TestCase
 {
@@ -55,7 +56,7 @@ class DeliveryCostCalculatorTest extends TestCase
             new Item(15.0, 15.0, 15.0),
             new Item(105.0, 5.0, 5.0)
         ];
-        $returnVal = DeliveryCostCalculator::calculateCost($items);A
+        $returnVal = DeliveryCostCalculator::calculateCost($items);
         $this->assertSame(33, $returnVal['totalCost']);
         $this->assertCount(2, $returnVal['items']);
 
@@ -64,5 +65,26 @@ class DeliveryCostCalculatorTest extends TestCase
 
         $this->assertSame(25, $returnVal['items'][1]->cost);
         $this->assertSame(ItemType::XLarge, $returnVal['items'][1]->type);
+    }
+
+    public function testSpeedy()
+    {
+        $items = [
+            new Item(15.0, 15.0, 15.0),
+            new Item(105.0, 5.0, 5.0)
+        ];
+        $returnVal = DeliveryCostCalculator::calculateCost($items, ShippingType::Speedy);
+        $this->assertSame(66, $returnVal['totalCost']);
+
+        $this->assertCount(3, $returnVal['items']);
+
+        $this->assertSame(8, $returnVal['items'][0]->cost);
+        $this->assertSame(ItemType::Medium, $returnVal['items'][0]->type);
+
+        $this->assertSame(25, $returnVal['items'][1]->cost);
+        $this->assertSame(ItemType::XLarge, $returnVal['items'][1]->type);
+
+        $this->assertSame(33, $returnVal['items'][2]->cost);
+        $this->assertSame(ItemType::SpeedyShipping, $returnVal['items'][2]->type);
     }
 }
