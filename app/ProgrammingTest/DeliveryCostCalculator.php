@@ -4,18 +4,22 @@ namespace ProgrammingTest;
 
 class DeliveryCostCalculator
 {
-    public static function calculateCost(Item $item): int
+    public static function calculateCost(Item $item): Item
     {
         $longestDimension = max($item->width, $item->length, $item->height);
         if ($longestDimension < 10) {
-            return 3;
+            $item->cost = 3;
+            $item->type = ItemType::Small;
+        } else if ($longestDimension < 50) {
+            $item->cost = 8;
+            $item->type = ItemType::Medium;
+        } else if ($longestDimension < 100) {
+            $item->cost = 15;
+            $item->type = ItemType::Large;
+        } else {
+            $item->cost = 25;
+            $item->type = ItemType::XLarge;
         }
-        if ($longestDimension < 50) {
-            return 8;
-        }
-        if ($longestDimension < 100) {
-            return 15;
-        }
-        return 25;
+        return $item;
     }
 }

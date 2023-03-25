@@ -7,6 +7,7 @@ class Item
     public float $length;
     public float $height;
     public ?int $cost;
+    public ?ItemType $type;
 
     public function __construct(float $width, float $length, float $height)
     {
