@@ -4,6 +4,23 @@ namespace ProgrammingTest;
 
 class DeliveryCostCalculator
 {
+    private const OVER_WEIGHT_FEE_PER_KG = 2;
+
+    // PHP 8.1 doesn't allow enum types as keys of arrays, so use a function to map
+    private static function getLimitByType(ItemType $type)
+    {
+        if ($type === ItemType::Small) {
+            return 1;
+        }
+        if ($type === ItemType::Medium) {
+            return 3;
+        }
+        if ($type === ItemType::Large) {
+            return 6;
+        }
+        return 10;
+    }
+
     /**
      * @param Item[] $items
      * @return array - 'items', an array of Items
@@ -26,6 +43,10 @@ class DeliveryCostCalculator
             } else {
                 $item->cost = 25;
                 $item->type = ItemType::XLarge;
+            }
+            $weightLimit = self::getLimitByType($item->type);
+            if ($item->weight > $weightLimit) {
+                $item->cost += self::OVER_WEIGHT_FEE_PER_KG * ceil($item->weight - $weightLimit);
             }
             $totalCost += $item->cost;
         }
