@@ -132,3 +132,6 @@ For very large orders, it seems like this could be an expensive calculation, as 
 
 3:52 Let's stop here, since I'm slightly over 2 hours now.
 
+
+Output of PHPUnit:
+<img width="1840" alt="Screenshot 2023-03-25 at 3 58 19 PM" src="https://user-images.githubusercontent.com/172005/227686620-5b70bd1a-80ca-4bed-a55f-4396a58b4d09.png">
