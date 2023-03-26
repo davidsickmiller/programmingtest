@@ -165,4 +165,102 @@ class DeliveryCostCalculatorTest extends TestCase
         $this->assertSame(33, $returnVal['items'][2]->cost);
         $this->assertSame(ItemType::SpeedyShipping, $returnVal['items'][2]->type);
     }
+
+    public function testSpecialDiscounts()
+    {
+        $items = [
+            new Item(15.0, 15.0, 15.0, 0.1),    // $8 medium
+            new Item(15.0, 15.0, 15.0, 0.1),    // $8 medium
+            new Item(15.0, 15.0, 15.0, 0.1),    // $8 medium
+            new Item(15.0, 15.0, 15.0, 4.0),    // $10 medium
+            new Item(15.0, 15.0, 15.0, 4.0),    // $10 medium
+            new Item(15.0, 15.0, 15.0, 4.0),    // $10 medium
+        ];
+        $returnVal = DeliveryCostCalculator::calculateCost($items);
+        $this->assertSame(36, $returnVal['totalCost']);
+        $this->assertCount(8, $returnVal['items']);
+
+        $this->assertSame(8, $returnVal['items'][0]->cost);
+        $this->assertSame(ItemType::Medium, $returnVal['items'][0]->type);
+
+        $this->assertSame(8, $returnVal['items'][1]->cost);
+        $this->assertSame(ItemType::Medium, $returnVal['items'][1]->type);
+
+        $this->assertSame(8, $returnVal['items'][2]->cost);
+        $this->assertSame(ItemType::Medium, $returnVal['items'][2]->type);
+
+        $this->assertSame(10, $returnVal['items'][3]->cost);
+        $this->assertSame(ItemType::Medium, $returnVal['items'][3]->type);
+
+        $this->assertSame(10, $returnVal['items'][4]->cost);
+        $this->assertSame(ItemType::Medium, $returnVal['items'][4]->type);
+
+        $this->assertSame(10, $returnVal['items'][5]->cost);
+        $this->assertSame(ItemType::Medium, $returnVal['items'][5]->type);
+
+        // TODO: Don't be so picky about the order of the discounts
+        $this->assertSame(-8, $returnVal['items'][6]->cost);
+        $this->assertSame(ItemType::MediumParcelManiaDiscount, $returnVal['items'][6]->type);
+
+        $this->assertSame(-10, $returnVal['items'][7]->cost);
+        $this->assertSame(ItemType::MediumParcelManiaDiscount, $returnVal['items'][7]->type);
+    }
+    public function testExtraTrickySpecialDiscounts()
+    {
+        $items = [
+            new Item(15.0, 15.0, 15.0, 0.1),    // $8 medium
+            new Item(15.0, 15.0, 15.0, 19.0),   // $40 medium
+            new Item(15.0, 15.0, 15.0, 19.0),   // $40 medium
+            new Item(60.0, 15.0, 15.0, 4.0),    // $15 large
+            new Item(60.0, 15.0, 15.0, 4.0),    // $15 large
+            new Item(60.0, 15.0, 15.0, 4.0),    // $15 large
+            new Item(60.0, 15.0, 15.0, 4.0),    // $15 large
+            new Item(60.0, 15.0, 15.0, 4.0),    // $15 large
+            new Item(60.0, 15.0, 15.0, 4.0),    // $15 large
+            new Item(60.0, 15.0, 15.0, 4.0),    // $15 large
+            new Item(60.0, 15.0, 15.0, 4.0),    // $15 large
+        ];
+        $returnVal = DeliveryCostCalculator::calculateCost($items);
+        $this->assertSame(178, $returnVal['totalCost']);
+        $this->assertCount(13, $returnVal['items']);
+
+        $this->assertSame(8, $returnVal['items'][0]->cost);
+        $this->assertSame(ItemType::Medium, $returnVal['items'][0]->type);
+
+        $this->assertSame(40, $returnVal['items'][1]->cost);
+        $this->assertSame(ItemType::Medium, $returnVal['items'][1]->type);
+
+        $this->assertSame(40, $returnVal['items'][2]->cost);
+        $this->assertSame(ItemType::Medium, $returnVal['items'][2]->type);
+
+        $this->assertSame(15, $returnVal['items'][3]->cost);
+        $this->assertSame(ItemType::Large, $returnVal['items'][3]->type);
+
+        $this->assertSame(15, $returnVal['items'][4]->cost);
+        $this->assertSame(ItemType::Large, $returnVal['items'][4]->type);
+
+        $this->assertSame(15, $returnVal['items'][5]->cost);
+        $this->assertSame(ItemType::Large, $returnVal['items'][5]->type);
+
+        $this->assertSame(15, $returnVal['items'][6]->cost);
+        $this->assertSame(ItemType::Large, $returnVal['items'][6]->type);
+
+        $this->assertSame(15, $returnVal['items'][7]->cost);
+        $this->assertSame(ItemType::Large, $returnVal['items'][7]->type);
+
+        $this->assertSame(15, $returnVal['items'][8]->cost);
+        $this->assertSame(ItemType::Large, $returnVal['items'][8]->type);
+
+        $this->assertSame(15, $returnVal['items'][9]->cost);
+        $this->assertSame(ItemType::Large, $returnVal['items'][9]->type);
+
+        $this->assertSame(15, $returnVal['items'][10]->cost);
+        $this->assertSame(ItemType::Large, $returnVal['items'][10]->type);
+
+        $this->assertSame(-15, $returnVal['items'][11]->cost);
+        $this->assertSame(ItemType::MixedParcelManiaDiscount, $returnVal['items'][11]->type);
+
+        $this->assertSame(-15, $returnVal['items'][12]->cost);
+        $this->assertSame(ItemType::MixedParcelManiaDiscount, $returnVal['items'][12]->type);
+    }
 }

@@ -11,4 +11,7 @@ enum ItemType
     case Heavy;
 
     case SpeedyShipping;
+    case SmallParcelManiaDiscount;
+    case MediumParcelManiaDiscount;
+    case MixedParcelManiaDiscount;
 }
